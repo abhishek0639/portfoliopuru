@@ -20,17 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Particle Canvas */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
         /* Animated background */
         .bg-animation {
             position: fixed;
@@ -116,7 +105,7 @@
 
         header {
             text-align: center;
-            padding: 100px 20px 80px;
+            padding: 80px 20px;
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -155,22 +144,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 10px;
-            min-height: 1.2em;
+            animation: fadeInDown 1s ease, glow 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
         }
 
-        .typing-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1em;
-            background: #8b5cf6;
-            margin-left: 5px;
-            animation: blink 0.7s infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
         }
 
         .header-content .tagline {
@@ -192,9 +172,9 @@
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .contact-info a {
@@ -206,26 +186,6 @@
             border: 2px solid rgba(139, 92, 246, 0.3);
             border-radius: 50px;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-info a::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(139, 92, 246, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-
-        .contact-info a:hover::before {
-            width: 300px;
-            height: 300px;
         }
 
         .contact-info a:hover {
@@ -233,37 +193,6 @@
             background: rgba(139, 92, 246, 0.2);
             border-color: #8b5cf6;
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        }
-
-        .contact-info a span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .download-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .download-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
-            animation: none;
         }
 
         nav {
@@ -326,16 +255,9 @@
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         section::before {
@@ -423,51 +345,35 @@
             position: relative;
         }
 
-        .skill-item {
-            margin-bottom: 20px;
+        .skill-card ul {
+            list-style: none;
+            position: relative;
         }
 
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
+        .skill-card li {
+            padding: 12px 0;
             color: #cbd5e1;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
             position: relative;
+            padding-left: 25px;
         }
 
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            border-radius: 10px;
-            position: relative;
-            width: 0;
-            transition: width 1.5s ease-out;
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-        }
-
-        .skill-progress::after {
-            content: '';
+        .skill-card li::before {
+            content: '▹';
             position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmerBar 2s infinite;
+            color: #8b5cf6;
+            font-size: 1.5em;
         }
 
-        @keyframes shimmerBar {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .skill-card li:hover {
+            color: #fff;
+            padding-left: 30px;
+        }
+
+        .skill-card li:last-child {
+            border-bottom: none;
         }
 
         .experience-item {
@@ -702,18 +608,31 @@
             font-size: 1.1em;
         }
 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        #about p {
-            text-align: center;
-            font-size: 1.2em;
-            color: #cbd5e1;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 2;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
@@ -733,10 +652,19 @@
                 gap: 10px;
             }
         }
+
+        /* About section special styling */
+        #about p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 2;
+        }
     </style>
 </head>
 <body>
-    <canvas id="particles-canvas"></canvas>
     <div class="bg-animation"></div>
     <div class="floating-shapes">
         <div class="shape"></div>
@@ -747,15 +675,14 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1 id="typing-text"></h1>
+                <h1>Abhishek Puru</h1>
                 <p class="tagline">Machine Learning Engineer | AI Systems Specialist</p>
                 <p>ML Engineer with 2 years of experience building production-ready ML systems and optimization algorithms. Specialized in ensemble methods, deep learning frameworks, and scalable MLOps pipelines. Expertise in time-series forecasting, computer vision, and real-time inference for data-driven optimization.</p>
                 <div class="contact-info">
-                    <a href="mailto:abhishekpuru66@gmail.com"><span>📧 Email</span></a>
-                    <a href="tel:+12052532462"><span>📱 Phone</span></a>
-                    <a href="#"><span>📍 Birmingham, AL</span></a>
+                    <a href="mailto:abhishekpuru66@gmail.com">📧 Email</a>
+                    <a href="tel:+12052532462">📱 Phone</a>
+                    <a href="#">📍 Birmingham, AL</a>
                 </div>
-                <a href="#" class="download-btn" onclick="alert('Add your resume PDF link here!'); return false;">⬇️ Download Resume</a>
             </div>
         </header>
 
@@ -781,60 +708,36 @@
             <div class="skills-grid">
                 <div class="skill-card">
                     <h3>🤖 Machine Learning & AI</h3>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>Deep Learning</span><span>95%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="95"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>Computer Vision</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>NLP & LLMs</span><span>88%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="88"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>Time-Series Forecasting</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
-                    </div>
+                    <ul>
+                        <li>Deep Learning (TensorFlow, PyTorch, Keras)</li>
+                        <li>Computer Vision & Image Processing</li>
+                        <li>Natural Language Processing (NLP)</li>
+                        <li>Large Language Models (LLMs)</li>
+                        <li>Time-Series Forecasting</li>
+                        <li>Ensemble Methods</li>
+                    </ul>
                 </div>
                 <div class="skill-card">
                     <h3>⚙️ MLOps & Infrastructure</h3>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>PyTorch & TensorFlow</span><span>92%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="92"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>AWS Cloud</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>MLflow & Tracking</span><span>88%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="88"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>CUDA Optimization</span><span>80%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="80"></div></div>
-                    </div>
+                    <ul>
+                        <li>Model Optimization (CUDA)</li>
+                        <li>MLflow & Experiment Tracking</li>
+                        <li>AWS Cloud Services</li>
+                        <li>Grafana Monitoring</li>
+                        <li>CI/CD Pipelines</li>
+                        <li>Version Control (Git)</li>
+                    </ul>
                 </div>
                 <div class="skill-card">
                     <h3>💻 Development & Tools</h3>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>Python</span><span>95%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="95"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>LangChain & RAG</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>React & Three.js</span><span>82%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="82"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name"><span>SQL & Databases</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
-                    </div>
+                    <ul>
+                        <li>Python Programming</li>
+                        <li>LangChain & CrewAI</li>
+                        <li>React Three.js</li>
+                        <li>Vector Databases</li>
+                        <li>SQL & Data Analysis</li>
+                        <li>Agile Methodologies</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -854,4 +757,107 @@
                     <li>Developed backend infrastructure using Python, LangChain, CrewAI, and vector databases to support LLM AI agents, achieving 80% performance improvement and processing 4,000 daily queries</li>
                     <li>Implemented interactive 3D avatar models (glb format) in React Three.js frontend with API connectivity, delivering real-time full-scale avatars that increased user engagement by 70%</li>
                     <li>Created RAG systems with embeddings, semantic search, and knowledge graphs, boosting contextual recommendation accuracy by 75% across 200+ users</li>
-                    <li>Enhanced multi-agent coordination, prompt optimization, and embedding models for scalable, low-latency AI solutions, decreasing response time from 5 seconds to 1 secon
+                    <li>Enhanced multi-agent coordination, prompt optimization, and embedding models for scalable, low-latency AI solutions, decreasing response time from 5 seconds to 1 second</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>Research Assistant</h3>
+                        <p class="company">University of Alabama at Birmingham</p>
+                    </div>
+                    <span class="date">Aug 2024 – Dec 2024</span>
+                </div>
+                <ul>
+                    <li>Optimized cutting-edge Computer Vision models using PyTorch on 40,000+ image datasets for V2X solutions, delivering 30% enhancement in precision and recall metrics through methodical tuning and data augmentation techniques</li>
+                    <li>Built A/B testing infrastructure with statistical analysis, incorporating multimodal LLMs for live road condition assessment</li>
+                    <li>Worked with interdisciplinary teams following Agile Sprint practices on proof-of-concept development and TRB research publications</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>AI/ML Engineering Trainee</h3>
+                        <p class="company">Bharath Intern</p>
+                    </div>
+                    <span class="date">Jul 2023 – Nov 2023</span>
+                </div>
+                <ul>
+                    <li>Led 4-person development team using Agile methodologies to build computer vision pipeline with statistical learning and deep learning models for feature optimization and multi-class classification</li>
+                    <li>Developed CNN-based traffic sign classifier achieving 94% accuracy using ensemble techniques, Gaussian noise augmentation, cross-entropy optimization, and systematic validation across multiple data splits</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🤖 Context-Aware Agentic AI</h3>
+                        <p class="tech-stack">LangGraph | LangChain | HuggingFace | Transformers</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Engineered stateful multi-agent conversational workflows using LangGraph, leveraging advanced prompt strategies (APO, CoT)</li>
+                            <li>Managed context across agents to boost reasoning accuracy by 35%</li>
+                            <li>Implemented Git-based CI/CD pipelines with automated testing and versioning for seamless LLMOps deployment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📊 Human Behavior Analytics</h3>
+                        <p class="tech-stack">Apache Spark | Hadoop | Distributed Computing</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Designed and implemented scalable big data architecture processing social media behavioral data with Apache Spark distributed framework</li>
+                            <li>Performed comprehensive data preprocessing including noise removal, normalization, and transformation on large-scale unstructured datasets</li>
+                            <li>Applied MapReduce paradigm and RDD for parallel processing of user interaction data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🚦 Traffic Sign Classifier</h3>
+                        <p class="tech-stack">CNN | PyTorch | Computer Vision</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built CNN-based multi-class classification system achieving 94% accuracy</li>
+                            <li>Implemented ensemble techniques and Gaussian noise augmentation for robust model performance</li>
+                            <li>Optimized using cross-entropy loss and systematic validation across multiple data splits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>University of Alabama at Birmingham</h3>
+                    <p class="degree">Master of Science in Computer Science</p>
+                    <p class="location">📍 Birmingham, AL</p>
+                    <p style="color: #94a3b8;">Jan 2024 – Dec 2025</p>
+                    <p class="gpa">GPA: 3.5 / 4.0</p>
+                </div>
+                <div class="education-card">
+                    <h3>ST Martins Engineering College</h3>
+                    <p class="degree">Bachelor of Technology in Computer Science and Engineering</p>
+                    <p class="location">📍 Hyderabad, TS, India</p>
+                    <p style="color: #94a3b8;">Aug 2019 – Jul 2023</p>
+                    <p class="gpa">GPA: 8.01 / 10</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Abhishek Puru. All rights reserved.</p>
+            <p style="margin-top: 15px; color: #cbd5e1;">Built with passion for Machine
