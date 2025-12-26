@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Puru - ML Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #0a0e27;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 20s infinite;
+            opacity: 0.1;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #3b82f6, #06b6d4);
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #10b981, #84cc16);
+            bottom: 10%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, -50px) rotate(90deg); }
+            50% { transform: translate(0, -100px) rotate(180deg); }
+            75% { transform: translate(-50px, -50px) rotate(270deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: 4em;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease, glow 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .header-content .tagline {
+            font-size: 1.5em;
+            color: #a78bfa;
+            margin-bottom: 20px;
+            font-weight: 600;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .header-content p {
+            font-size: 1.1em;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 25px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .contact-info a:hover {
+            transform: translateY(-3px);
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 15px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            transform: translateX(-50%);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::before {
+            width: 80%;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            margin-bottom: 30px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        section:hover::before {
+            left: 100%;
+        }
+
+        h2 {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #3b82f6);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            transition: transform 0.5s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.4);
+            border-color: #8b5cf6;
+        }
+
+        .skill-card:hover::before {
+            transform: translate(-25%, -25%);
+        }
+
+        .skill-card h3 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .skill-card ul {
+            list-style: none;
+            position: relative;
+        }
+
+        .skill-card li {
+            padding: 12px 0;
+            color: #cbd5e1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .skill-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+            font-size: 1.5em;
+        }
+
+        .skill-card li:hover {
+            color: #fff;
+            padding-left: 30px;
+        }
+
+        .skill-card li:last-child {
+            border-bottom: none;
+        }
+
+        .experience-item {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid;
+            border-image: linear-gradient(180deg, #3b82f6, #8b5cf6) 1;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            transition: height 0.4s;
+        }
+
+        .experience-item:hover {
+            transform: translateX(15px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .experience-item:hover::before {
+            height: 100%;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .experience-header h3 {
+            color: #a78bfa;
+            font-size: 1.6em;
+        }
+
+        .experience-header .company {
+            color: #ec4899;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .experience-header .date {
+            color: #3b82f6;
+            font-weight: 600;
+            padding: 8px 20px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+        }
+
+        .experience-item ul {
+            margin-left: 20px;
+        }
+
+        .experience-item li {
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .experience-item li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 30px 70px rgba(139, 92, 246, 0.4);
+            border-color: #8b5cf6;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-header h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .project-header .tech-stack {
+            font-size: 0.9em;
+            opacity: 0.9;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .project-body {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-body ul {
+            margin-left: 20px;
+        }
+
+        .project-body li {
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .project-body li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .education-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: '🎓';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4em;
+            opacity: 0.1;
+        }
+
+        .education-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(59, 130, 246, 0.4);
+        }
+
+        .education-card h3 {
+            font-size: 1.7em;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .education-card .degree {
+            font-size: 1.2em;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+
+        .education-card .location {
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .education-card .gpa {
+            font-weight: 600;
+            margin-top: 15px;
+            color: #10b981;
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #a78bfa;
+            font-size: 1.1em;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.5em;
+            }
+
+            .project-grid, .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+        }
+
+        /* About section special styling */
+        #about p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Abhishek Puru</h1>
+                <p class="tagline">Machine Learning Engineer | AI Systems Specialist</p>
+                <p>ML Engineer with 2 years of experience building production-ready ML systems and optimization algorithms. Specialized in ensemble methods, deep learning frameworks, and scalable MLOps pipelines. Expertise in time-series forecasting, computer vision, and real-time inference for data-driven optimization.</p>
+                <div class="contact-info">
+                    <a href="mailto:abhishekpuru66@gmail.com">📧 Email</a>
+                    <a href="tel:+12052532462">📱 Phone</a>
+                    <a href="#">📍 Birmingham, AL</a>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+            </ul>
+        </nav>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I'm passionate about building scalable ML systems that solve real-world problems. With expertise in deep learning, computer vision, and MLOps, I focus on developing production-ready AI solutions that deliver measurable impact. From optimizing model performance to implementing agentic AI workflows, I combine rigorous engineering practices with cutting-edge ML techniques to create systems that are both powerful and efficient.
+            </p>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🤖 Machine Learning & AI</h3>
+                    <ul>
+                        <li>Deep Learning (TensorFlow, PyTorch, Keras)</li>
+                        <li>Computer Vision & Image Processing</li>
+                        <li>Natural Language Processing (NLP)</li>
+                        <li>Large Language Models (LLMs)</li>
+                        <li>Time-Series Forecasting</li>
+                        <li>Ensemble Methods</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>⚙️ MLOps & Infrastructure</h3>
+                    <ul>
+                        <li>Model Optimization (CUDA)</li>
+                        <li>MLflow & Experiment Tracking</li>
+                        <li>AWS Cloud Services</li>
+                        <li>Grafana Monitoring</li>
+                        <li>CI/CD Pipelines</li>
+                        <li>Version Control (Git)</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>💻 Development & Tools</h3>
+                    <ul>
+                        <li>Python Programming</li>
+                        <li>LangChain & CrewAI</li>
+                        <li>React Three.js</li>
+                        <li>Vector Databases</li>
+                        <li>SQL & Data Analysis</li>
+                        <li>Agile Methodologies</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Work Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>AI Intern</h3>
+                        <p class="company">LifeSizeAgents.ai, USA</p>
+                    </div>
+                    <span class="date">Apr 2025 – July 2025</span>
+                </div>
+                <ul>
+                    <li>Developed backend infrastructure using Python, LangChain, CrewAI, and vector databases to support LLM AI agents, achieving 80% performance improvement and processing 4,000 daily queries</li>
+                    <li>Implemented interactive 3D avatar models (glb format) in React Three.js frontend with API connectivity, delivering real-time full-scale avatars that increased user engagement by 70%</li>
+                    <li>Created RAG systems with embeddings, semantic search, and knowledge graphs, boosting contextual recommendation accuracy by 75% across 200+ users</li>
+                    <li>Enhanced multi-agent coordination, prompt optimization, and embedding models for scalable, low-latency AI solutions, decreasing response time from 5 seconds to 1 second</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>Research Assistant</h3>
+                        <p class="company">University of Alabama at Birmingham</p>
+                    </div>
+                    <span class="date">Aug 2024 – Dec 2024</span>
+                </div>
+                <ul>
+                    <li>Optimized cutting-edge Computer Vision models using PyTorch on 40,000+ image datasets for V2X solutions, delivering 30% enhancement in precision and recall metrics through methodical tuning and data augmentation techniques</li>
+                    <li>Built A/B testing infrastructure with statistical analysis, incorporating multimodal LLMs for live road condition assessment</li>
+                    <li>Worked with interdisciplinary teams following Agile Sprint practices on proof-of-concept development and TRB research publications</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>AI/ML Engineering Trainee</h3>
+                        <p class="company">Bharath Intern</p>
+                    </div>
+                    <span class="date">Jul 2023 – Nov 2023</span>
+                </div>
+                <ul>
+                    <li>Led 4-person development team using Agile methodologies to build computer vision pipeline with statistical learning and deep learning models for feature optimization and multi-class classification</li>
+                    <li>Developed CNN-based traffic sign classifier achieving 94% accuracy using ensemble techniques, Gaussian noise augmentation, cross-entropy optimization, and systematic validation across multiple data splits</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🤖 Context-Aware Agentic AI</h3>
+                        <p class="tech-stack">LangGraph | LangChain | HuggingFace | Transformers</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Engineered stateful multi-agent conversational workflows using LangGraph, leveraging advanced prompt strategies (APO, CoT)</li>
+                            <li>Managed context across agents to boost reasoning accuracy by 35%</li>
+                            <li>Implemented Git-based CI/CD pipelines with automated testing and versioning for seamless LLMOps deployment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📊 Human Behavior Analytics</h3>
+                        <p class="tech-stack">Apache Spark | Hadoop | Distributed Computing</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Designed and implemented scalable big data architecture processing social media behavioral data with Apache Spark distributed framework</li>
+                            <li>Performed comprehensive data preprocessing including noise removal, normalization, and transformation on large-scale unstructured datasets</li>
+                            <li>Applied MapReduce paradigm and RDD for parallel processing of user interaction data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🚦 Traffic Sign Classifier</h3>
+                        <p class="tech-stack">CNN | PyTorch | Computer Vision</p>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built CNN-based multi-class classification system achieving 94% accuracy</li>
+                            <li>Implemented ensemble techniques and Gaussian noise augmentation for robust model performance</li>
+                            <li>Optimized using cross-entropy loss and systematic validation across multiple data splits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>University of Alabama at Birmingham</h3>
+                    <p class="degree">Master of Science in Computer Science</p>
+                    <p class="location">📍 Birmingham, AL</p>
+                    <p style="color: #94a3b8;">Jan 2024 – Dec 2025</p>
+                    <p class="gpa">GPA: 3.5 / 4.0</p>
+                </div>
+                <div class="education-card">
+                    <h3>ST Martins Engineering College</h3>
+                    <p class="degree">Bachelor of Technology in Computer Science and Engineering</p>
+                    <p class="location">📍 Hyderabad, TS, India</p>
+                    <p style="color: #94a3b8;">Aug 2019 – Jul 2023</p>
+                    <p class="gpa">GPA: 8.01 / 10</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Abhishek Puru. All rights reserved.</p>
+            <p style="margin-top: 15px; color: #cbd5e1;">Built with passion for Machine
